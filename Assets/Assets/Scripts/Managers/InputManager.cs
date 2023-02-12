@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TowerWar
 {
-    public class InputManager : MonoBehaviour, IInputManager
+    public class InputManager : MonoBehaviour
     {
         public PathMaker pathMaker;
         private Camera cam;
@@ -32,6 +32,7 @@ namespace TowerWar
         {
             if (Input.GetMouseButtonUp(0) && this.dragging)
             {
+                PathMaker.Instance.GetComponent<LineRenderer>().enabled = false;
                 this.lineRenderer.enabled = false;
                 this.allowFakePath = false;
                 this.dragging = false;
@@ -41,6 +42,7 @@ namespace TowerWar
                     if (this.hit1.transform.position == this.hit2.transform.position)
                         return;
                     if (this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
+                        Debug.Log("reached Check pathable object type");
                         this.CheckPathableObjectType(this.hit1, this.hit2);
                 }
             }
@@ -71,8 +73,14 @@ namespace TowerWar
                 RaycastHit hitInfo1;
                 if (this.allowFakePath && Physics.Raycast(this.cam.ScreenPointToRay(Input.mousePosition), out hitInfo1) && this.hit1.transform.GetComponent<ObjectDefiner>().pathType == PathType.pathmaker && !(bool)(Object)hitInfo1.transform.GetComponent<ParentTowerBehaviour>() && this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
                 {
+                   
                     this.lineRenderer.enabled = true;
+                    pathMaker.GetComponent<LineRenderer>().enabled = true;
                     this.pathMaker.CreateFakePath(this.hit1.transform.position, hitInfo1.point);
+                }
+                else
+                {
+                    
                 }
             }
             if (!Input.GetMouseButtonDown(0))
@@ -89,63 +97,66 @@ namespace TowerWar
             this.allowFakePath = true;
         }
 
-        public void GetTouchInput()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                this.dragging = true;
-                this.ray1 = this.cam.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(this.ray1, out this.hit1) && (this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType == PathType.pathmaker || this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType == PathType.projectilepath))
-                    Debug.Log((object)"1st tower reached");
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                this.lineRenderer.enabled = false;
-                this.startingPos = this.currentPos;
-                this.dragging = false;
-                this.ray2 = this.cam.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(this.ray2, out this.hit2))
-                {
-                    if (this.hit1.transform.position == this.hit2.transform.position)
-                        return;
-                    if (this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
-                        this.CheckPathableObjectType(this.hit1, this.hit2);
-                }
-            }
-            if (Input.GetMouseButton(0) && this.dragging)
-            {
-                this.pathRay = this.cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hitInfo;
-                if (Physics.Raycast(this.pathRay, out hitInfo))
-                {
-                    PathInfo component;
-                    if (hitInfo.transform.TryGetComponent<PathInfo>(out component))
-                        this.pathMaker.PathRemovalCheckInList(LevelDetails.Instance.Towers.IndexOf(component.startingTower), LevelDetails.Instance.Towers.IndexOf(component.endingTower));
-                    this.startingPos = hitInfo.point;
-                    Debug.Log((object)"checking path");
-                    if (this.currentPos != this.startingPos)
-                    {
-                        Vector3 currentPos = this.currentPos;
-                        Debug.Log((object)"mousepos changed for path");
-                        Debug.Log((object)this.startingPos);
-                        Debug.Log((object)this.currentPos);
-                        if (!(bool)(Object)this.hit1.transform.GetComponent<ParentTowerBehaviour>() || (bool)(Object)this.hit2.transform.GetComponent<ParentTowerBehaviour>())
-                            this.IntersectionCalculator(this.startingPos, this.currentPos);
-                    }
-                    this.currentPos = hitInfo.point;
-                }
-            }
-            if (Input.GetMouseButton(0))
-            {
-                RaycastHit hitInfo;
-                if (!Physics.Raycast(this.cam.ScreenPointToRay(Input.mousePosition), out hitInfo) || this.hit1.transform.GetComponent<ObjectDefiner>().pathType != PathType.pathmaker || (bool)(Object)hitInfo.transform.GetComponent<ParentTowerBehaviour>() || this.hit1.transform.GetComponent<ParentTowerClass>().civilization != LevelDetails.Instance.playerCivilization)
-                    return;
-                this.lineRenderer.enabled = true;
-                this.pathMaker.CreateFakePath(this.hit1.transform.position, hitInfo.point);
-            }
-            else
-                this.lineRenderer.enabled = false;
-        }
+        //public void GetTouchInput()
+        //{
+        //    if (Input.GetMouseButtonDown(0))
+        //    {
+        //        this.dragging = true;
+        //        this.ray1 = this.cam.ScreenPointToRay(Input.mousePosition);
+        //        if (Physics.Raycast(this.ray1, out this.hit1) && (this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType == PathType.pathmaker || this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType == PathType.projectilepath))
+        //            Debug.Log((object)"1st tower reached");
+        //    }
+        //    if (Input.GetMouseButtonUp(0))
+        //    {
+        //        PathMaker.Instance.gameObject.GetComponent<LineRenderer>().enabled = false;
+        //        this.lineRenderer.enabled = false;
+        //        this.startingPos = this.currentPos;
+        //        this.dragging = false;
+        //        this.ray2 = this.cam.ScreenPointToRay(Input.mousePosition);
+        //        if (Physics.Raycast(this.ray2, out this.hit2))
+        //        {
+        //            if (this.hit1.transform.position == this.hit2.transform.position)
+        //                return;
+        //            if (this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
+        //                this.CheckPathableObjectType(this.hit1, this.hit2);
+        //        }
+        //    }
+        //    if (Input.GetMouseButton(0) && this.dragging)
+        //    {
+        //        this.pathRay = this.cam.ScreenPointToRay(Input.mousePosition);
+        //        RaycastHit hitInfo;
+        //        if (Physics.Raycast(this.pathRay, out hitInfo))
+        //        {
+        //            PathInfo component;
+        //            if (hitInfo.transform.TryGetComponent<PathInfo>(out component))
+        //                this.pathMaker.PathRemovalCheckInList(LevelDetails.Instance.Towers.IndexOf(component.startingTower), LevelDetails.Instance.Towers.IndexOf(component.endingTower));
+        //            this.startingPos = hitInfo.point;
+        //            Debug.Log((object)"checking path");
+        //            if (this.currentPos != this.startingPos)
+        //            {
+        //                Vector3 currentPos = this.currentPos;
+        //                Debug.Log((object)"mousepos changed for path");
+        //                Debug.Log((object)this.startingPos);
+        //                Debug.Log((object)this.currentPos);
+        //                if (!(bool)(Object)this.hit1.transform.GetComponent<ParentTowerBehaviour>() || (bool)(Object)this.hit2.transform.GetComponent<ParentTowerBehaviour>())
+        //                    this.IntersectionCalculator(this.startingPos, this.currentPos);
+        //            }
+        //            this.currentPos = hitInfo.point;
+        //        }
+        //    }
+        //    if (Input.GetMouseButton(0))
+        //    {
+        //        RaycastHit hitInfo;
+        //        if (!Physics.Raycast(this.cam.ScreenPointToRay(Input.mousePosition), out hitInfo) || this.hit1.transform.GetComponent<ObjectDefiner>().pathType != PathType.pathmaker || (bool)(Object)hitInfo.transform.GetComponent<ParentTowerBehaviour>() || this.hit1.transform.GetComponent<ParentTowerClass>().civilization != LevelDetails.Instance.playerCivilization)
+        //            return;
+                
+        //        this.lineRenderer.enabled = true;
+        //        this.pathMaker.CreateFakePath(this.hit1.transform.position, hitInfo.point);
+        //    }
+          
+                
+               
+        //}
 
         public void CheckPathableObjectType(RaycastHit hit1, RaycastHit hit2)
         {
@@ -159,11 +170,13 @@ namespace TowerWar
                     return;
                 int fromTower = LevelDetails.Instance.Towers.IndexOf(component1.gameObject);
                 int toTower = LevelDetails.Instance.Towers.IndexOf(component2.gameObject);
+                Debug.Log("hurdles check reached");
                 if (!PathMaker.PathHurdlesCheck(component1.gameObject, component2.gameObject))
                     return;
-                if (ServernGameBridge.Instance.onlineGame)
-                    ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
-                else
+                //    if (ServernGameBridge.Instance.onlineGame)
+                //       ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
+                //   else
+                Debug.LogWarning("create path reached");
                     this.pathMaker.CreatePath(fromTower, toTower);
             }
         }
@@ -176,11 +189,11 @@ namespace TowerWar
                 if (this.CheckIntersection(startingPoint, endingPoint, allPath.startingTower.transform.position, allPath.endingTower.transform.position) && allPath.civilization == LevelDetails.Instance.playerCivilization)
                 {
                     Debug.Log((object)"checking found path to remove");
-                    if (ServernGameBridge.Instance.onlineGame)
-                    {
-                        ServernGameBridge.Instance.RemovePathOnServer(LevelDetails.Instance.Towers.IndexOf(allPath.startingTower), LevelDetails.Instance.Towers.IndexOf(allPath.endingTower));
-                        break;
-                    }
+                //    if (ServernGameBridge.Instance.onlineGame)
+            //        {
+                     //   ServernGameBridge.Instance.RemovePathOnServer(LevelDetails.Instance.Towers.IndexOf(allPath.startingTower), LevelDetails.Instance.Towers.IndexOf(allPath.endingTower));
+                     //   break;
+                  //  }
                     this.pathMaker.PathRemovalCheckInList(LevelDetails.Instance.Towers.IndexOf(allPath.startingTower), LevelDetails.Instance.Towers.IndexOf(allPath.endingTower));
                     break;
                 }

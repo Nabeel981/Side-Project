@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace TowerWar
+{
 
     public class ObstacleBehavior : MonoBehaviour
     {
@@ -38,3 +40,4 @@ using UnityEngine;
         }
     }
 
+}

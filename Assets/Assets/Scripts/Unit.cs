@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace TowerWar
+{
+
     public class Unit : MonoBehaviour
     {
         public Vector3 spawnPos;
@@ -28,7 +31,7 @@ using UnityEngine;
             }
         }
 
-        private void OnEnable() => ServernGameBridge.Instance.MovethistoScene(this.gameObject);
+       // private void OnEnable() => ServernGameBridge.Instance.MovethistoScene(this.gameObject);
 
         public void Start()
         {
@@ -43,3 +46,4 @@ using UnityEngine;
 
         private void OnDisable() => this.makeTugPoint = false;
     }
+}

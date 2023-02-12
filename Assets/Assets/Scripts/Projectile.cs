@@ -5,7 +5,7 @@ using UnityEngine;
     {
         public Vector3 spawnPos;
         public Vector3 destinationPos;
-        public ProjectileType projectileType;
+       // public ProjectileType projectileType;
         public Civilization civilization;
         public int unitHealth;
         public GameObject selfProjectile;

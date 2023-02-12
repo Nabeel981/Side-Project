@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
+namespace TowerWar
+{
     public class ObjectPooler : MonoBehaviour
     {
         public static ObjectPooler instance;
@@ -42,7 +43,7 @@ using UnityEngine;
             for (int index = 0; index < this.ObjectPool.Count; ++index)
             {
                 Debug.Log((object)"unit made");
-                ServernGameBridge.Instance.MovethistoScene(Object.Instantiate<GameObject>(prefab));
+               // ServernGameBridge.Instance.MovethistoScene(Object.Instantiate<GameObject>(prefab));
                 prefab.SetActive(false);
                 this.ObjectPool.Add(prefab);
             }
@@ -80,3 +81,4 @@ using UnityEngine;
             return gameObject;
         }
     }
+}

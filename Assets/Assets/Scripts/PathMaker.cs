@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace TowerWar
+{
 
-    public class PathMaker : MonoBehaviour, IPathMaker
+    public class PathMaker : MonoBehaviour
     {
         public List<PathInfo> AllPaths;
         private LineRenderer lineRenderer;
@@ -52,13 +54,13 @@ using UnityEngine;
             }
         }
 
-        public void CannonPath(GameObject CannonTower, Vector3 cannonTarget)
-        {
-            new GameObject("cannonPath").AddComponent<LineRenderer>();
-            CannonTowerClass component = CannonTower.GetComponent<CannonTowerClass>();
-            component.targetArea = cannonTarget;
-            component.startshooting = true;
-        }
+        //public void CannonPath(GameObject CannonTower, Vector3 cannonTarget)
+        //{
+        //    new GameObject("cannonPath").AddComponent<LineRenderer>();
+        //    CannonTowerClass component = CannonTower.GetComponent<CannonTowerClass>();
+        //    component.targetArea = cannonTarget;
+        //    component.startshooting = true;
+        //}
 
         public void CreateFakePath(Vector3 selfTower, Vector3 fakePathPoint)
         {
@@ -165,7 +167,7 @@ using UnityEngine;
         {
             NonRangedTowerClass component = thisTowerGameobject.GetComponent<NonRangedTowerClass>();
             GameObject gameObject = new GameObject("path");
-            ServernGameBridge.Instance.MovethistoScene(gameObject);
+            //   ServernGameBridge.Instance.MovethistoScene(gameObject);
             PathInfo pathInfo = gameObject.AddComponent<PathInfo>();
             pathInfo.civilization = component.civilization;
             pathInfo.startingTower = thisTowerGameobject;
@@ -175,26 +177,26 @@ using UnityEngine;
             this.AllPaths.Add(pathInfo);
             component.selfTower = thisTowerGameobject;
             Debug.Log((object)thatTowerGameobject.name.ToString());
-            if (component.towerType != TowerType.archerTower && component.towerType != TowerType.archerTower)
+            // if (component.towerType != TowerType.archerTower && component.towerType != TowerType.archerTower)
+            //  {
+            LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
+            lineRenderer.SetPosition(0, new Vector3(component.selfTower.transform.position.x, component.selfTower.transform.position.y + 0.05f, component.selfTower.transform.position.z));
+            lineRenderer.SetPosition(1, pathInfo.endingTower.transform.position);
+            Mesh mesh1 = new Mesh();
+            MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
+            gameObject.GetComponent<LineRenderer>().BakeMesh(mesh1);
+            Mesh mesh2 = mesh1;
+            meshCollider.sharedMesh = mesh2;
+            this.PathColor(gameObject, component);
+            for (int index = 0; index < component.paths.Length; ++index)
             {
-                LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
-                lineRenderer.SetPosition(0, new Vector3(component.selfTower.transform.position.x, component.selfTower.transform.position.y + 0.05f, component.selfTower.transform.position.z));
-                lineRenderer.SetPosition(1, pathInfo.endingTower.transform.position);
-                Mesh mesh1 = new Mesh();
-                MeshCollider meshCollider = gameObject.AddComponent<MeshCollider>();
-                gameObject.GetComponent<LineRenderer>().BakeMesh(mesh1);
-                Mesh mesh2 = mesh1;
-                meshCollider.sharedMesh = mesh2;
-                this.PathColor(gameObject, component);
-                for (int index = 0; index < component.paths.Length; ++index)
+                if ((Object)component.paths[index] == (Object)null)
                 {
-                    if ((Object)component.paths[index] == (Object)null)
-                    {
-                        component.paths[index] = pathInfo;
-                        return;
-                    }
+                    component.paths[index] = pathInfo;
+                    return;
                 }
             }
+            //  }
             component.enable = 1;
         }
 
@@ -228,3 +230,4 @@ using UnityEngine;
         }
     }
 
+}

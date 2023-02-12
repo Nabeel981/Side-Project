@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace TowerWar
+{
 
     public class PathInfo : MonoBehaviour
     {
@@ -31,8 +33,8 @@ using UnityEngine;
                 return;
             GameObject prefab = component.prefab;
             this.movingUnit = ObjectPooler.instance.StartSpawning(prefab, this.startingTower).GetComponent<Unit>();
-            if (component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower)
-                return;
+            //if (component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower || component.towerType == TowerType.archerTower)
+            //    return;
             this.movingUnit.spawnPos = this.startingTower.transform.position;
             this.movingUnit.onPath = this.gameObject;
             this.movingUnit.destinationpPos = this.endingTower.transform.position;
@@ -88,3 +90,4 @@ using UnityEngine;
 
         public void TugPointMaker() => this.movingUnit.makeTugPoint = true;
     }
+}

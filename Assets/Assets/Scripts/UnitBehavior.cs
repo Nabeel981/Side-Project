@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace TowerWar
+{
+
     public class UnitBehavior : MonoBehaviour
     {
         public Unit thisUnit;
@@ -63,11 +66,12 @@ using UnityEngine;
 
         public void ObstacleHitBehavior() => this.thisUnit.destinationpPos = this.thisUnit.unitStartingTower.transform.position;
 
-        public void TugPointInfo(TugPoint tugPoint)
-        {
-            tugPoint.Towers.Add(this.thisUnit.unitStartingTower);
-            tugPoint.Towers.Add(this.thisUnit.unitEndingTower);
-            tugPoint.tugPath = this.thisUnit.onPath;
-        }
+        //public void TugPointInfo(TugPoint tugPoint)
+        //{
+        //    tugPoint.Towers.Add(this.thisUnit.unitStartingTower);
+        //    tugPoint.Towers.Add(this.thisUnit.unitEndingTower);
+        //    tugPoint.tugPath = this.thisUnit.onPath;
+        //}
     }
 
+}

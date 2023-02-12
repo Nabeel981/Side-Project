@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace TowerWar
+{
 
     public class ObjectDefiner : MonoBehaviour
     {
@@ -23,3 +25,4 @@ using UnityEngine;
         }
     }
 
+}

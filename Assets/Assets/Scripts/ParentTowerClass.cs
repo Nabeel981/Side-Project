@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace TowerWar
+{
 
     [RequireComponent(typeof(ObjectDefiner))]
     public class ParentTowerClass : PathableObjects
@@ -24,3 +26,4 @@ using UnityEngine;
         }
     }
 
+}

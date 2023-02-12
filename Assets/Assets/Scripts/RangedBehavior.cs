@@ -1,10 +1,10 @@
 using UnityEngine;
 
 
-    public class RangedBehavior : MonoBehaviour, IRangedBehavior
+    public class RangedBehavior : MonoBehaviour
     {
-        private ProjectileType projectileType;
-        private MotionType motionType;
+      //  private ProjectileType projectileType;
+       // private MotionType motionType;
         public GameObject projectile;
         public float launchVelocity = 700f;
 
@@ -15,10 +15,10 @@ using UnityEngine;
             switch (startingGameObject.GetComponent<ObjectType>())
             {
                 case ObjectType.Tower:
-                    this.motionType = MotionType.projectileMotion;
+                 //   this.motionType = MotionType.projectileMotion;
                     break;
                 case ObjectType.Unit:
-                    this.motionType = MotionType.LinearMotion;
+               //     this.motionType = MotionType.LinearMotion;
                     break;
             }
         }

@@ -1,4 +1,7 @@
 
+namespace TowerWar
+{
+
     public class RangedTowerBehaviorParent : ParentTowerBehaviour
     {
         public RangedTowerClassParent thisRangedTower;
@@ -39,3 +42,4 @@
         }
     }
 
+}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TowerWar
 {
-    public class GameSettings : MonoBehaviour, IGameSettings
+    public class GameSettings : MonoBehaviour
     {
         public SoundManager soundManager;
 

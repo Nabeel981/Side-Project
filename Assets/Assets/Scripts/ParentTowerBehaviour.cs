@@ -1,5 +1,8 @@
 using UnityEngine;
 
+namespace TowerWar
+{
+
 
     public class ParentTowerBehaviour : MonoBehaviour
     {
@@ -54,37 +57,38 @@ using UnityEngine;
             {
                 if (thisTower.towerHealth > 0)
                     return;
-                if (ServernGameBridge.Instance.onlineGame)
-                    ServernGameBridge.Instance.ChangeTowerCivilizationOnServer(LevelDetails.Instance.Towers.IndexOf(this.gameObject), (int)unit.civilization);
-                else
-                    this.ConvertTower(unit.civilization);
+                //if (ServernGameBridge.Instance.onlineGame)
+                //    ServernGameBridge.Instance.ChangeTowerCivilizationOnServer(LevelDetails.Instance.Towers.IndexOf(this.gameObject), (int)unit.civilization);
+                //else
+                this.ConvertTower(unit.civilization);
             }
         }
 
         public void ConvertTower(Civilization toCivilization)
         {
-            if (ServernGameBridge.Instance.onlineGame)
-            {
-                PathMaker.Instance.RemoveAllOutgoingPathsOnConversion(this.gameObject);
-                this.thisTower.civilization = toCivilization;
-                this.thisTower.towerHealth = 0;
-                this.thisTower.GetComponent<ObjectDefiner>().civilization = toCivilization;
-                this.ChangeTowerMaterial(toCivilization);
-            }
-            else if (this.thisTower.civilization == LevelDetails.Instance.playerCivilization)
+            //if (ServernGameBridge.Instance.onlineGame)
+            //{
+            //    PathMaker.Instance.RemoveAllOutgoingPathsOnConversion(this.gameObject);
+            //    this.thisTower.civilization = toCivilization;
+            //    this.thisTower.towerHealth = 0;
+            //    this.thisTower.GetComponent<ObjectDefiner>().civilization = toCivilization;
+            //    this.ChangeTowerMaterial(toCivilization);
+            //}
+            /*else*/
+            if (this.thisTower.civilization == LevelDetails.Instance.playerCivilization)
             {
                 if (this.thisTower.civilization == toCivilization)
                     return;
                 if (this.thisTower.transform.TryGetComponent<NonRangedTowerBehavior>(out NonRangedTowerBehavior _))
                 {
                     PathMaker.Instance.RemoveAllOutgoingPathsOnConversion(this.gameObject);
-                    if (!ServernGameBridge.Instance.onlineGame)
-                    {
-                        if ((bool)(Object)this.thisTower.GetComponent<EnemyAi>())
-                            this.thisTower.GetComponent<EnemyAi>().enabled = true;
-                        else
-                            this.thisTower.gameObject.AddComponent<EnemyAi>();
-                    }
+                    //if (!ServernGameBridge.Instance.onlineGame)
+                    ////{
+                    //    if ((bool)(Object)this.thisTower.GetComponent<EnemyAi>())
+                    //        this.thisTower.GetComponent<EnemyAi>().enabled = true;
+                    //    else
+                    //        this.thisTower.gameObject.AddComponent<EnemyAi>();
+                    // }
                 }
                 this.thisTower.civilization = toCivilization;
                 this.thisTower.towerHealth = 0;
@@ -99,7 +103,7 @@ using UnityEngine;
                 {
                     PathMaker.Instance.RemoveAllOutgoingPathsOnConversion(this.gameObject);
                     if ((bool)(Object)this.thisTower.GetComponent<EnemyAi>())
-                        this.thisTower.GetComponent<EnemyAi>().enabled = false;
+                        this.thisTower.GetComponent<TowerWar.EnemyAi>().enabled = false;
                 }
                 this.thisTower.civilization = toCivilization;
                 this.thisTower.towerHealth = 0;
@@ -166,3 +170,4 @@ using UnityEngine;
         }
     }
 
+}

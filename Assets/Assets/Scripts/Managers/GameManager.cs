@@ -82,35 +82,38 @@ namespace TowerWar
             {
                 if (this.playerCivAndIDs.Count != 1)
                     return;
-                ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Green]);
+               // ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Green]);
             }
             else if (this.red == 0)
             {
                 if (this.playerCivAndIDs.Count != 2)
                     return;
-                ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Red]);
+             //   ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Red]);
             }
             else
             {
                 if (this.blue != 0 || this.playerCivAndIDs.Count != 3)
                     return;
-                ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Blue]);
+             //   ServernGameBridge.Instance.WonOrLost(false, this.playerCivAndIDs[Civilization.Blue]);
             }
         }
 
         public void GameWinDecision()
         {
             if (this.green == this.allTowers.Length)
-                ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Green]);
+            {
+
+            }
+               // ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Green]);
             else if (this.red == this.allTowers.Length)
             {
-                ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Red]);
+              //  ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Red]);
             }
             else
             {
                 if (this.blue != this.allTowers.Length)
                     return;
-                ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Blue]);
+               // ServernGameBridge.Instance.WonOrLost(true, this.playerCivAndIDs[Civilization.Blue]);
             }
         }
 

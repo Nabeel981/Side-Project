@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace TowerWar
+{
+
+
     public class LevelDetails : MonoBehaviour
     {
         public int levelNumber = 1;
@@ -26,8 +30,8 @@ using UnityEngine;
 
         public void AiBehavior()
         {
-            if (!ServernGameBridge.Instance.onlineGame)
-                return;
+            //if (!ServernGameBridge.Instance.onlineGame)
+            //    return;
             foreach (GameObject tower in this.Towers)
             {
                 EnemyAi component;
@@ -37,3 +41,4 @@ using UnityEngine;
         }
     }
 
+}

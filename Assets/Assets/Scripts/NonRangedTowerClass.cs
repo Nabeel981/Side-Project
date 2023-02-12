@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+namespace TowerWar{
 
     public class NonRangedTowerClass : ParentTowerClass
     {
@@ -8,3 +8,4 @@ using UnityEngine;
         public List<GameObject> targetTowers;
         public int enable;
     }
+}

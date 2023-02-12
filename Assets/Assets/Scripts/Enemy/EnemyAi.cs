@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace TowerWar
 {
-    public class EnemyAi : MonoBehaviour, IEnemyAi
+    public class EnemyAi : MonoBehaviour
     {
         [HideInInspector]
         private GameObject[] allTowers;
@@ -58,9 +58,9 @@ namespace TowerWar
                         {
                             int fromTower = LevelDetails.Instance.Towers.IndexOf(this.gameObject);
                             int toTower = LevelDetails.Instance.Towers.IndexOf(endingTower);
-                            if (ServernGameBridge.Instance.onlineGame)
-                                ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
-                            else if (PathMaker.PathHurdlesCheck(this.gameObject, endingTower))
+                         //   if (ServernGameBridge.Instance.onlineGame)
+                              //  ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
+                           // else if (PathMaker.PathHurdlesCheck(this.gameObject, endingTower))
                                 PathMaker.Instance.CreatePath(fromTower, toTower);
                         }
                     }
@@ -71,11 +71,11 @@ namespace TowerWar
                         {
                             int fromTower = LevelDetails.Instance.Towers.IndexOf(this.gameObject);
                             int toTower = LevelDetails.Instance.Towers.IndexOf(endingTower);
-                            ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
+                          //  ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
                             Debug.Log((object)" path made ");
-                            if (ServernGameBridge.Instance.onlineGame)
-                                ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
-                            else if (PathMaker.PathHurdlesCheck(this.gameObject, endingTower))
+                           // if (ServernGameBridge.Instance.onlineGame)
+                           //     ServernGameBridge.Instance.MakePathOnServer(fromTower, toTower);
+                         //   else if (PathMaker.PathHurdlesCheck(this.gameObject, endingTower))
                                 PathMaker.Instance.CreatePath(fromTower, toTower);
                         }
                     }

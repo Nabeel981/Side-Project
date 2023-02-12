@@ -41,3 +41,5 @@ public enum UserType
     Player,
     AI,
 }
+public enum TowerType {  a, b, c}
+
