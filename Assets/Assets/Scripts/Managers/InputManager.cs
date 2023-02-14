@@ -41,9 +41,16 @@ namespace TowerWar
                 {
                     if (this.hit1.transform.position == this.hit2.transform.position)
                         return;
-                    if (this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
-                        Debug.Log("reached Check pathable object type");
-                        this.CheckPathableObjectType(this.hit1, this.hit2);
+                    if(hit1.transform.gameObject.GetComponent<ParentTowerBehaviour>() && hit1.transform.gameObject.GetComponent<ParentTowerBehaviour>())
+                    {
+                        if (this.hit1.transform.GetComponent<ParentTowerClass>().civilization == LevelDetails.Instance.playerCivilization)
+                        {
+                            Debug.Log("reached Check pathable object type");
+                            this.CheckPathableObjectType(this.hit1, this.hit2);
+                        }
+                        
+                    }
+
                 }
             }
             if (Input.GetMouseButton(0))
@@ -54,17 +61,17 @@ namespace TowerWar
                     RaycastHit hitInfo;
                     if (Physics.Raycast(this.pathRay, out hitInfo))
                     {
-                        Debug.Log((object)"checking path");
+                      //  Debug.Log((object)"checking path");
                         this.currentPos = hitInfo.point;
                         if (this.currentPos != this.startingPos)
                         {
                             Vector3 currentPos = this.currentPos;
-                            Debug.Log((object)"mousepos changed for path");
-                            Debug.Log((object)this.startingPos);
-                            Debug.Log((object)this.currentPos);
+                          //  Debug.Log((object)"mousepos changed for path");
+                           // Debug.Log((object)this.startingPos);
+                          //  Debug.Log((object)this.currentPos);
                             if (!(bool)(Object)this.hit1.transform.GetComponent<ParentTowerBehaviour>() && !(bool)(Object)this.hit2.transform.GetComponent<ParentTowerBehaviour>())
                             {
-                                Debug.Log((object)"checking intersection");
+                            //    Debug.Log((object)"checking intersection");
                                 this.IntersectionCalculator(this.startingPos, this.currentPos);
                             }
                         }
@@ -91,8 +98,14 @@ namespace TowerWar
             this.dragging = true;
             Debug.Log((object)"dragging should be true here");
             this.startingPos = this.hit1.point;
-            if (this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType != PathType.pathmaker && this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType != PathType.projectilepath)
+            if (!hit1.transform.GetComponent<ParentTowerBehaviour>())
+            {
+
                 return;
+                if (this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType != PathType.pathmaker && this.hit1.transform.gameObject.GetComponent<ObjectDefiner>().pathType != PathType.projectilepath)
+                    return;
+            }
+
             Debug.Log((object)"1st tower reached");
             this.allowFakePath = true;
         }
@@ -162,10 +175,13 @@ namespace TowerWar
         {
             ParentTowerClass component1;
             ParentTowerClass component2;
+            Debug.Log(hit1.transform.gameObject, hit2.transform.gameObject);
+            Debug.Log("abc "+ hit2.transform.gameObject);
             if (!hit1.transform.gameObject.TryGetComponent<ParentTowerClass>(out component1) || !hit2.transform.gameObject.TryGetComponent<ParentTowerClass>(out component2) || (Object)component1 == (Object)component2)
                 return;
             if (component1.objDefiner.pathType == PathType.pathmaker)
             {
+                Debug.Log("reached here");
                 if (component1.civilization != LevelDetails.Instance.playerCivilization || !LevelDetails.Instance.Towers.Contains(component1.gameObject) || !LevelDetails.Instance.Towers.Contains(component2.gameObject))
                     return;
                 int fromTower = LevelDetails.Instance.Towers.IndexOf(component1.gameObject);

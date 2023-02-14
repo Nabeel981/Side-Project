@@ -44,14 +44,14 @@ namespace TowerWar
 
         public bool AllowCollisionCheck(Unit thatUnit) => this.thisUnit.spawnPos == thatUnit.destinationpPos && this.thisUnit.destinationpPos == thatUnit.spawnPos && thatUnit.civilization != this.thisUnit.civilization;
 
-        private void Awake() => this.thisUnit = this.GetComponent<Unit>();
+        private void Awake() => thisUnit = this.GetComponent<Unit>();
 
         private void OnTriggerEnter(Collider collider)
         {
             if (collider.gameObject.TryGetComponent<Unit>(out Unit _))
             {
                 Unit component = collider.gameObject.GetComponent<Unit>();
-                Debug.Log((object)"unit collided with another unit");
+              //  Debug.Log((object)"unit collided with another unit");
                 if (!this.AllowCollisionCheck(component))
                     return;
                 this.UnitDecreaseHealth(component, collider);
@@ -60,7 +60,7 @@ namespace TowerWar
             {
                 if (!collider.gameObject.TryGetComponent<ParentTowerBehaviour>(out ParentTowerBehaviour _))
                     return;
-                Debug.Log((object)"unit collided with tower");
+              //  Debug.Log((object)"unit collided with tower");
             }
         }
 

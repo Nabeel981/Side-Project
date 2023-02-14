@@ -114,26 +114,26 @@ namespace TowerWar
 
         private void OnTriggerEnter(Collider collider)
         {
-            Debug.Log((object)"tower detected unit");
+          //  Debug.Log((object)"tower detected unit");
             Unit component;
             if (!collider.transform.TryGetComponent<Unit>(out component))
                 return;
-            Debug.Log((object)"tower detected  component");
+           // Debug.Log((object)"tower detected  component");
             this.thisTower = this.gameObject.GetComponent<ParentTowerClass>();
             if (!((Object)this.thisTower.selfTower == (Object)component.unitEndingTower))
                 return;
-            Debug.Log((object)"ending tower tower detected  component");
+           // Debug.Log((object)"ending tower tower detected  component");
             if (this.thisTower.civilization == component.civilization)
             {
                 if (component.unitType == UnitType.Archer)
                     return;
-                Debug.Log((object)"health increase funciton called");
+            //    Debug.Log((object)"health increase funciton called");
                 this.IncreaseHealth(component, this.thisTower);
                 ObjectPooler.instance.ReturnObjectToPool(collider.gameObject);
             }
             else
             {
-                Debug.Log((object)"health decrease funciton called");
+            //    Debug.Log((object)"health decrease funciton called");
                 ObjectPooler.instance.ReturnObjectToPool(collider.gameObject);
                 this.DecreaseHealth(component, this.thisTower);
             }

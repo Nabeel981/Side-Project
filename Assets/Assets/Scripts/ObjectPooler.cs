@@ -24,6 +24,7 @@ namespace TowerWar
             GameObject objectFromPool = this.GetObjectFromPool(prefab);
             objectFromPool.transform.position = startingTower.transform.position;
             return objectFromPool;
+
         }
 
         public void ObjectPoolerGlobal()
@@ -73,7 +74,7 @@ namespace TowerWar
         public GameObject IncreasePoolSize(GameObject prefab)
         {
             ++this.unitsSize;
-            this.totalUnits.text = this.unitsSize.ToString() + " units";
+            //this.totalUnits.text = this.unitsSize.ToString() + " units";
             Debug.Log((object)"unit made");
             GameObject gameObject = Object.Instantiate<GameObject>(prefab);
             gameObject.SetActive(false);

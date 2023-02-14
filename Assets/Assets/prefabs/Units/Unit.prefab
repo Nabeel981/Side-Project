@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 231507826733086074}
   - component: {fileID: 6605130240819693067}
   - component: {fileID: 6007870157250006816}
-  m_Layer: 0
+  - component: {fileID: 7077078577042534679}
+  - component: {fileID: 7551938777751891361}
+  m_Layer: 2
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +94,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2560271154387326955}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -134,3 +136,35 @@ MonoBehaviour:
   thisUnit: {fileID: 0}
   thatUnit: {fileID: 0}
   tugPointPrefab: {fileID: 0}
+--- !u!114 &7077078577042534679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560271154387326955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99df153c4cd48294487c802195ff8a14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectType: 1
+  userType: 0
+  civilization: 0
+  pathType: 0
+--- !u!54 &7551938777751891361
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2560271154387326955}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
