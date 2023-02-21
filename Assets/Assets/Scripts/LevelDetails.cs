@@ -8,6 +8,8 @@ namespace TowerWar
     public class LevelDetails : MonoBehaviour
     {
         public int levelNumber = 1;
+        public int totalUnitsAlloed;
+        public int totalUnitsInScene;
         public int totalTowers = 2;
         public int totalCivilizations = 2;
         public int totalPLayers = 2;

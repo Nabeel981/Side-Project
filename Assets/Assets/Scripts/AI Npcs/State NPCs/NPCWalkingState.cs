@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCWalkingState : MonoBehaviour
+public class NPCWalkingState : NPCState
 {
     public Vector3 currentPos, previousPos, randomMovementSpot;
 
-    public NPCInteractionState interactionState; 
+    public NPCInteractionState interactionState;
+
+    public override NPCState RunCurrentState()
+    {
+          return interactionState;
+    }
     void Start()
     {
         
@@ -21,6 +26,12 @@ public class NPCWalkingState : MonoBehaviour
     public NPCState PossibleInteractionInRange()
     {
         return interactionState;
+
+    }
+    public void walking()
+    {
+
+
 
     }
 
@@ -38,4 +49,6 @@ public class NPCWalkingState : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, randomMovementSpot, .05f);
         previousPos = transform.position;
     }
+
+   
 }

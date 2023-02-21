@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class NPCIdleState : NPCState
 {
+    public NPCWalkingState walkingState;
     public bool FindNextPosition;
     public override NPCState RunCurrentState()
     {
         //code needs to be here?
-        return this;
+        return walkingState;
     }
 
     // Start is called before the first frame update
