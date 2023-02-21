@@ -28,6 +28,18 @@ public enum PathType
     pathable,
     projectilepath,
 }
+public enum UnitOwner
+{
+    Player
+   ,Ai
+}
+public enum UniteType
+{/// <summary>
+///  maybe use scriptable objects here
+/// </summary>
+    Player
+   ,Ai
+}
 public enum UnitType
 {
     none,
